@@ -7,7 +7,7 @@ A File Opener Plugin for Cordova (The Original Version)
 ==========================
 This plugin will open a file on your device file system with its default application.
 
-Current Version: 2.0.19
+Current Version: 2.0.20
 ----------------
 
 Requirements
@@ -18,16 +18,16 @@ Requirements
 Installation
 -------------
     cordova plugin add cordova-plugin-file-opener2
-    
+
 Usage
 ------
     cordova.plugins.fileOpener2.open(
-        filePath, 
-        fileMIMEType, 
+        filePath,
+        fileMIMEType,
         {
-            error : function(){ }, 
-            success : function(){ } 
-        } 
+            error : function(){ },
+            success : function(){ }
+        }
     );
 
 Examples
@@ -35,21 +35,21 @@ Examples
 Open an APK install dialog:
 
     cordova.plugins.fileOpener2.open(
-        '/sdcard/Download/gmail.apk', 
+        '/sdcard/Download/gmail.apk',
         'application/vnd.android.package-archive'
     );
-    
+
 Open a PDF document with the default PDF reader and optional callback object:
 
     cordova.plugins.fileOpener2.open(
         '/sdcard/Download/starwars.pdf', // You can also use a Cordova-style file uri: cdvfile://localhost/persistent/Download/starwars.pdf
-        'application/pdf', 
-        { 
-            error : function(e) { 
+        'application/pdf',
+        {
+            error : function(e) {
                 console.log('Error status: ' + e.status + ' - Error message: ' + e.message);
             },
             success : function () {
-                console.log('file opened successfully'); 				
+                console.log('file opened successfully');
             }
         }
     );
@@ -58,13 +58,28 @@ Open a system modal to open PDF document with one of the already installed app a
 
     cordova.plugins.fileOpener2.showOpenWithDialog(
         '/sdcard/Download/starwars.pdf', // You can also use a Cordova-style file uri: cdvfile://localhost/persistent/Download/starwars.pdf
-        'application/pdf', 
-        { 
-            error : function(e) { 
+        'application/pdf',
+        {
+            error : function(e) {
                 console.log('Error status: ' + e.status + ' - Error message: ' + e.message);
             },
             success : function () {
-                console.log('file opened successfully'); 				
+                console.log('file opened successfully');
+            }
+        }
+    );
+
+Open a system modal with options to save the file elsewhere (for example iCloud) or open with another app on the device
+
+    cordova.plugins.fileOpener2.showOptionsDialog(
+        '/sdcard/Download/starwars.pdf', // You can also use a Cordova-style file uri: cdvfile://localhost/persistent/Download/starwars.pdf
+        'application/pdf',
+        {
+            error : function(e) {
+                console.log('Error status: ' + e.status + ' - Error message: ' + e.message);
+            },
+            success : function () {
+                console.log('file opened successfully');
             }
         }
     );
@@ -89,7 +104,7 @@ Uninstall a package with its id.
 
     cordova.plugins.fileOpener2.uninstall('com.zynga.FarmVille2CountryEscape', {
         error : function(e) {
-            console.log('Error status: ' + e.status + ' - Error message: ' + e.message);    
+            console.log('Error status: ' + e.status + ' - Error message: ' + e.message);
         },
         success : function() {
             console.log('Uninstall intent activity started.');
