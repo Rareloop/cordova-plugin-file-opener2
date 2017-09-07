@@ -34,9 +34,14 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 	NSString *path = [[command.arguments objectAtIndex:0] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 	NSString *contentType = [command.arguments objectAtIndex:1];
 	BOOL showPreview = YES;
+	BOOL showOptions = NO;
 
 	if ([command.arguments count] >= 3) {
 		showPreview = [[command.arguments objectAtIndex:2] boolValue];
+	}
+
+	if ([command.arguments count] >= 4) {
+		showOptions = [[command.arguments objectAtIndex:3] boolValue];
 	}
 
 	CDVViewController* cont = (CDVViewController*)[super viewController];
@@ -80,8 +85,15 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 			wasOpened = [docController presentPreviewAnimated: NO];
 		} else {
 			CDVViewController* cont = self.cdvViewController;
-			CGRect rect = CGRectMake(0, 0, cont.view.bounds.size.width, cont.view.bounds.size.height);
-			wasOpened = [docController presentOpenInMenuFromRect:rect inView:cont.view animated:YES];
+
+			if (showOptions) {
+				CGRect rect = CGRectMake(0, 0, 1000.0f, 150.0f);
+				wasOpened = [docController presentOptionsMenuFromRect:rect inView:cont.view animated:YES];
+			} else {
+				CGRect rect = CGRectMake(0, 0, cont.view.bounds.size.width, cont.view.bounds.size.height);
+				wasOpened = [docController presentOpenInMenuFromRect:rect inView:cont.view animated:YES];
+			}
+
 		}
 
 		if(wasOpened) {
